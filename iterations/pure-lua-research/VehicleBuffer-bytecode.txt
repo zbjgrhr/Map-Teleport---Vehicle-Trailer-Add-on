@@ -1,0 +1,275 @@
+Compiled from "VehiclesDB2.java"
+final class zombie.vehicles.VehiclesDB2$VehicleBuffer {
+  int id;
+
+  int wx;
+
+  int wy;
+
+  float x;
+
+  float y;
+
+  int worldVersion;
+
+  boolean inMeta;
+
+  java.nio.ByteBuffer bb;
+
+  static final boolean $assertionsDisabled;
+
+  private zombie.vehicles.VehiclesDB2$VehicleBuffer();
+    Code:
+         0: aload_0
+         1: invokespecial #3                  // Method java/lang/Object."<init>":()V
+         4: aload_0
+         5: iconst_m1
+         6: putfield      #9                  // Field id:I
+         9: aload_0
+        10: ldc           #15                 // int 32768
+        12: invokestatic  #16                 // Method java/nio/ByteBuffer.allocate:(I)Ljava/nio/ByteBuffer;
+        15: putfield      #22                 // Field bb:Ljava/nio/ByteBuffer;
+        18: return
+
+  void set(zombie.vehicles.BaseVehicle) throws java.io.IOException;
+    Code:
+         0: getstatic     #26                 // Field $assertionsDisabled:Z
+         3: ifne          22
+         6: aload_1
+         7: getfield      #30                 // Field zombie/vehicles/BaseVehicle.sqlId:I
+        10: iconst_1
+        11: if_icmpge     22
+        14: new           #35                 // class java/lang/AssertionError
+        17: dup
+        18: invokespecial #37                 // Method java/lang/AssertionError."<init>":()V
+        21: athrow
+        22: getstatic     #38                 // Field zombie/vehicles/VehiclesDB2.instance:Lzombie/vehicles/VehiclesDB2;
+        25: getfield      #42                 // Field zombie/vehicles/VehiclesDB2.main:Lzombie/vehicles/VehiclesDB2$MainThread;
+        28: getfield      #46                 // Field zombie/vehicles/VehiclesDB2$MainThread.usedIds:Lgnu/trove/set/hash/TIntHashSet;
+        31: dup
+        32: astore_2
+        33: monitorenter
+        34: getstatic     #26                 // Field $assertionsDisabled:Z
+        37: ifne          67
+        40: getstatic     #38                 // Field zombie/vehicles/VehiclesDB2.instance:Lzombie/vehicles/VehiclesDB2;
+        43: getfield      #42                 // Field zombie/vehicles/VehiclesDB2.main:Lzombie/vehicles/VehiclesDB2$MainThread;
+        46: getfield      #46                 // Field zombie/vehicles/VehiclesDB2$MainThread.usedIds:Lgnu/trove/set/hash/TIntHashSet;
+        49: aload_1
+        50: getfield      #30                 // Field zombie/vehicles/BaseVehicle.sqlId:I
+        53: invokevirtual #52                 // Method gnu/trove/set/hash/TIntHashSet.contains:(I)Z
+        56: ifne          67
+        59: new           #35                 // class java/lang/AssertionError
+        62: dup
+        63: invokespecial #37                 // Method java/lang/AssertionError."<init>":()V
+        66: athrow
+        67: aload_2
+        68: monitorexit
+        69: goto          77
+        72: astore_3
+        73: aload_2
+        74: monitorexit
+        75: aload_3
+        76: athrow
+        77: aload_0
+        78: aload_1
+        79: getfield      #30                 // Field zombie/vehicles/BaseVehicle.sqlId:I
+        82: putfield      #9                  // Field id:I
+        85: aload_0
+        86: aload_1
+        87: getfield      #58                 // Field zombie/vehicles/BaseVehicle.chunk:Lzombie/iso/IsoChunk;
+        90: getfield      #62                 // Field zombie/iso/IsoChunk.wx:I
+        93: putfield      #67                 // Field wx:I
+        96: aload_0
+        97: aload_1
+        98: getfield      #58                 // Field zombie/vehicles/BaseVehicle.chunk:Lzombie/iso/IsoChunk;
+       101: getfield      #68                 // Field zombie/iso/IsoChunk.wy:I
+       104: putfield      #71                 // Field wy:I
+       107: aload_0
+       108: aload_1
+       109: invokevirtual #72                 // Method zombie/vehicles/BaseVehicle.getX:()F
+       112: putfield      #76                 // Field x:F
+       115: aload_0
+       116: aload_1
+       117: invokevirtual #80                 // Method zombie/vehicles/BaseVehicle.getY:()F
+       120: putfield      #83                 // Field y:F
+       123: aload_0
+       124: invokestatic  #86                 // Method zombie/iso/IsoWorld.getWorldVersion:()I
+       127: putfield      #92                 // Field worldVersion:I
+       130: aload_0
+       131: aload_1
+       132: invokevirtual #95                 // Method zombie/vehicles/BaseVehicle.shouldUpdateInMeta:()Z
+       135: putfield      #99                 // Field inMeta:Z
+       138: getstatic     #102                // Field zombie/vehicles/VehiclesDB2.TL_SliceBuffer:Ljava/lang/ThreadLocal;
+       141: invokevirtual #106                // Method java/lang/ThreadLocal.get:()Ljava/lang/Object;
+       144: checkcast     #17                 // class java/nio/ByteBuffer
+       147: astore_2
+       148: aload_2
+       149: invokevirtual #112                // Method java/nio/ByteBuffer.clear:()Ljava/nio/ByteBuffer;
+       152: pop
+       153: aload_1
+       154: aload_2
+       155: invokevirtual #116                // Method zombie/vehicles/BaseVehicle.save:(Ljava/nio/ByteBuffer;)V
+       158: goto          216
+       161: astore_3
+       162: aload_2
+       163: invokevirtual #122                // Method java/nio/ByteBuffer.capacity:()I
+       166: ldc           #125                // int 2097152
+       168: if_icmplt     195
+       171: getstatic     #126                // Field zombie/debug/DebugType.General:Lzombie/debug/DebugType;
+       174: ldc           #132                // String the vehicle %d cannot be saved
+       176: iconst_1
+       177: anewarray     #4                  // class java/lang/Object
+       180: dup
+       181: iconst_0
+       182: aload_1
+       183: getfield      #30                 // Field zombie/vehicles/BaseVehicle.sqlId:I
+       186: invokestatic  #134                // Method java/lang/Integer.valueOf:(I)Ljava/lang/Integer;
+       189: aastore
+       190: invokevirtual #140                // Method zombie/debug/DebugType.error:(Ljava/lang/String;[Ljava/lang/Object;)V
+       193: aload_3
+       194: athrow
+       195: aload_2
+       196: invokevirtual #122                // Method java/nio/ByteBuffer.capacity:()I
+       199: ldc           #15                 // int 32768
+       201: iadd
+       202: invokestatic  #16                 // Method java/nio/ByteBuffer.allocate:(I)Ljava/nio/ByteBuffer;
+       205: astore_2
+       206: getstatic     #102                // Field zombie/vehicles/VehiclesDB2.TL_SliceBuffer:Ljava/lang/ThreadLocal;
+       209: aload_2
+       210: invokevirtual #144                // Method java/lang/ThreadLocal.set:(Ljava/lang/Object;)V
+       213: goto          153
+       216: aload_2
+       217: invokevirtual #148                // Method java/nio/ByteBuffer.flip:()Ljava/nio/ByteBuffer;
+       220: pop
+       221: aload_0
+       222: aload_2
+       223: invokevirtual #151                // Method setBytes:(Ljava/nio/ByteBuffer;)V
+       226: return
+      Exception table:
+         from    to  target type
+            34    69    72   any
+            72    75    72   any
+           153   158   161   Class java/nio/BufferOverflowException
+
+  void setBytes(java.nio.ByteBuffer);
+    Code:
+         0: aload_1
+         1: invokevirtual #154                // Method java/nio/ByteBuffer.rewind:()Ljava/nio/ByteBuffer;
+         4: pop
+         5: new           #157                // class zombie/util/ByteBufferOutputStream
+         8: dup
+         9: aload_0
+        10: getfield      #22                 // Field bb:Ljava/nio/ByteBuffer;
+        13: iconst_1
+        14: invokespecial #159                // Method zombie/util/ByteBufferOutputStream."<init>":(Ljava/nio/ByteBuffer;Z)V
+        17: astore_2
+        18: aload_2
+        19: invokevirtual #162                // Method zombie/util/ByteBufferOutputStream.clear:()V
+        22: getstatic     #164                // Field zombie/vehicles/VehiclesDB2.TL_Bytes:Ljava/lang/ThreadLocal;
+        25: invokevirtual #106                // Method java/lang/ThreadLocal.get:()Ljava/lang/Object;
+        28: checkcast     #167                // class "[B"
+        31: astore_3
+        32: aload_1
+        33: invokevirtual #169                // Method java/nio/ByteBuffer.limit:()I
+        36: istore        4
+        38: iload         4
+        40: ifle          79
+        43: aload_3
+        44: arraylength
+        45: iload         4
+        47: invokestatic  #172                // Method java/lang/Math.min:(II)I
+        50: istore        5
+        52: aload_1
+        53: aload_3
+        54: iconst_0
+        55: iload         5
+        57: invokevirtual #178                // Method java/nio/ByteBuffer.get:([BII)Ljava/nio/ByteBuffer;
+        60: pop
+        61: aload_2
+        62: aload_3
+        63: iconst_0
+        64: iload         5
+        66: invokevirtual #181                // Method zombie/util/ByteBufferOutputStream.write:([BII)V
+        69: iload         4
+        71: iload         5
+        73: isub
+        74: istore        4
+        76: goto          38
+        79: aload_2
+        80: invokevirtual #185                // Method zombie/util/ByteBufferOutputStream.flip:()V
+        83: aload_0
+        84: aload_2
+        85: invokevirtual #187                // Method zombie/util/ByteBufferOutputStream.getWrappedBuffer:()Ljava/nio/ByteBuffer;
+        88: putfield      #22                 // Field bb:Ljava/nio/ByteBuffer;
+        91: return
+
+  void setBytes(byte[]);
+    Code:
+         0: new           #157                // class zombie/util/ByteBufferOutputStream
+         3: dup
+         4: aload_0
+         5: getfield      #22                 // Field bb:Ljava/nio/ByteBuffer;
+         8: iconst_1
+         9: invokespecial #159                // Method zombie/util/ByteBufferOutputStream."<init>":(Ljava/nio/ByteBuffer;Z)V
+        12: astore_2
+        13: aload_2
+        14: invokevirtual #162                // Method zombie/util/ByteBufferOutputStream.clear:()V
+        17: aload_2
+        18: aload_1
+        19: invokevirtual #190                // Method zombie/util/ByteBufferOutputStream.write:([B)V
+        22: aload_2
+        23: invokevirtual #185                // Method zombie/util/ByteBufferOutputStream.flip:()V
+        26: aload_0
+        27: aload_2
+        28: invokevirtual #187                // Method zombie/util/ByteBufferOutputStream.getWrappedBuffer:()Ljava/nio/ByteBuffer;
+        31: putfield      #22                 // Field bb:Ljava/nio/ByteBuffer;
+        34: return
+
+  void setBytes(java.io.InputStream) throws java.io.IOException;
+    Code:
+         0: new           #157                // class zombie/util/ByteBufferOutputStream
+         3: dup
+         4: aload_0
+         5: getfield      #22                 // Field bb:Ljava/nio/ByteBuffer;
+         8: iconst_1
+         9: invokespecial #159                // Method zombie/util/ByteBufferOutputStream."<init>":(Ljava/nio/ByteBuffer;Z)V
+        12: astore_2
+        13: aload_2
+        14: invokevirtual #162                // Method zombie/util/ByteBufferOutputStream.clear:()V
+        17: getstatic     #164                // Field zombie/vehicles/VehiclesDB2.TL_Bytes:Ljava/lang/ThreadLocal;
+        20: invokevirtual #106                // Method java/lang/ThreadLocal.get:()Ljava/lang/Object;
+        23: checkcast     #167                // class "[B"
+        26: astore_3
+        27: aload_1
+        28: aload_3
+        29: invokevirtual #193                // Method java/io/InputStream.read:([B)I
+        32: istore        4
+        34: iload         4
+        36: iconst_1
+        37: if_icmpge     43
+        40: goto          54
+        43: aload_2
+        44: aload_3
+        45: iconst_0
+        46: iload         4
+        48: invokevirtual #181                // Method zombie/util/ByteBufferOutputStream.write:([BII)V
+        51: goto          27
+        54: aload_2
+        55: invokevirtual #185                // Method zombie/util/ByteBufferOutputStream.flip:()V
+        58: aload_0
+        59: aload_2
+        60: invokevirtual #187                // Method zombie/util/ByteBufferOutputStream.getWrappedBuffer:()Ljava/nio/ByteBuffer;
+        63: putfield      #22                 // Field bb:Ljava/nio/ByteBuffer;
+        66: return
+
+  static {};
+    Code:
+         0: ldc           #1                  // class zombie/vehicles/VehiclesDB2
+         2: invokevirtual #199                // Method java/lang/Class.desiredAssertionStatus:()Z
+         5: ifne          12
+         8: iconst_1
+         9: goto          13
+        12: iconst_0
+        13: putstatic     #26                 // Field $assertionsDisabled:Z
+        16: return
+}

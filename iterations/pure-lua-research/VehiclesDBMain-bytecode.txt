@@ -1,0 +1,394 @@
+Compiled from "VehiclesDB2.java"
+final class zombie.vehicles.VehiclesDB2$MainThread {
+  final gnu.trove.set.hash.TIntHashSet seenChunks;
+
+  final gnu.trove.set.hash.TIntHashSet usedIds;
+
+  final gnu.trove.set.hash.TIntHashSet loadedIds;
+
+  boolean forceSave;
+
+  final java.util.concurrent.ConcurrentLinkedQueue<zombie.vehicles.VehiclesDB2$QueueItem> queue;
+
+  static final boolean $assertionsDisabled;
+
+  zombie.vehicles.VehiclesDB2$MainThread();
+    Code:
+         0: aload_0
+         1: invokespecial #3                  // Method java/lang/Object."<init>":()V
+         4: aload_0
+         5: new           #9                  // class gnu/trove/set/hash/TIntHashSet
+         8: dup
+         9: invokespecial #11                 // Method gnu/trove/set/hash/TIntHashSet."<init>":()V
+        12: putfield      #12                 // Field seenChunks:Lgnu/trove/set/hash/TIntHashSet;
+        15: aload_0
+        16: new           #9                  // class gnu/trove/set/hash/TIntHashSet
+        19: dup
+        20: invokespecial #11                 // Method gnu/trove/set/hash/TIntHashSet."<init>":()V
+        23: putfield      #18                 // Field usedIds:Lgnu/trove/set/hash/TIntHashSet;
+        26: aload_0
+        27: new           #9                  // class gnu/trove/set/hash/TIntHashSet
+        30: dup
+        31: invokespecial #11                 // Method gnu/trove/set/hash/TIntHashSet."<init>":()V
+        34: putfield      #21                 // Field loadedIds:Lgnu/trove/set/hash/TIntHashSet;
+        37: aload_0
+        38: new           #24                 // class java/util/concurrent/ConcurrentLinkedQueue
+        41: dup
+        42: invokespecial #26                 // Method java/util/concurrent/ConcurrentLinkedQueue."<init>":()V
+        45: putfield      #27                 // Field queue:Ljava/util/concurrent/ConcurrentLinkedQueue;
+        48: aload_0
+        49: getfield      #12                 // Field seenChunks:Lgnu/trove/set/hash/TIntHashSet;
+        52: fconst_0
+        53: invokevirtual #31                 // Method gnu/trove/set/hash/TIntHashSet.setAutoCompactionFactor:(F)V
+        56: aload_0
+        57: getfield      #18                 // Field usedIds:Lgnu/trove/set/hash/TIntHashSet;
+        60: fconst_0
+        61: invokevirtual #31                 // Method gnu/trove/set/hash/TIntHashSet.setAutoCompactionFactor:(F)V
+        64: aload_0
+        65: getfield      #21                 // Field loadedIds:Lgnu/trove/set/hash/TIntHashSet;
+        68: fconst_0
+        69: invokevirtual #31                 // Method gnu/trove/set/hash/TIntHashSet.setAutoCompactionFactor:(F)V
+        72: return
+
+  void Reset();
+    Code:
+         0: aload_0
+         1: getfield      #12                 // Field seenChunks:Lgnu/trove/set/hash/TIntHashSet;
+         4: invokevirtual #35                 // Method gnu/trove/set/hash/TIntHashSet.clear:()V
+         7: aload_0
+         8: getfield      #18                 // Field usedIds:Lgnu/trove/set/hash/TIntHashSet;
+        11: invokevirtual #35                 // Method gnu/trove/set/hash/TIntHashSet.clear:()V
+        14: aload_0
+        15: getfield      #21                 // Field loadedIds:Lgnu/trove/set/hash/TIntHashSet;
+        18: invokevirtual #35                 // Method gnu/trove/set/hash/TIntHashSet.clear:()V
+        21: getstatic     #38                 // Field $assertionsDisabled:Z
+        24: ifne          45
+        27: aload_0
+        28: getfield      #27                 // Field queue:Ljava/util/concurrent/ConcurrentLinkedQueue;
+        31: invokevirtual #42                 // Method java/util/concurrent/ConcurrentLinkedQueue.isEmpty:()Z
+        34: ifne          45
+        37: new           #46                 // class java/lang/AssertionError
+        40: dup
+        41: invokespecial #48                 // Method java/lang/AssertionError."<init>":()V
+        44: athrow
+        45: aload_0
+        46: getfield      #27                 // Field queue:Ljava/util/concurrent/ConcurrentLinkedQueue;
+        49: invokevirtual #49                 // Method java/util/concurrent/ConcurrentLinkedQueue.clear:()V
+        52: aload_0
+        53: iconst_0
+        54: putfield      #50                 // Field forceSave:Z
+        57: return
+
+  void update() throws java.io.IOException;
+    Code:
+         0: getstatic     #53                 // Field zombie/network/GameClient.client:Z
+         3: ifne          92
+         6: getstatic     #58                 // Field zombie/network/GameServer.server:Z
+         9: ifne          92
+        12: aload_0
+        13: getfield      #50                 // Field forceSave:Z
+        16: ifeq          92
+        19: aload_0
+        20: iconst_0
+        21: putfield      #50                 // Field forceSave:Z
+        24: iconst_0
+        25: istore_1
+        26: iload_1
+        27: iconst_4
+        28: if_icmpge     92
+        31: getstatic     #65                 // Field zombie/characters/IsoPlayer.players:[Lzombie/characters/IsoPlayer;
+        34: iload_1
+        35: aaload
+        36: astore_2
+        37: aload_2
+        38: ifnull        86
+        41: aload_2
+        42: invokevirtual #69                 // Method zombie/characters/IsoPlayer.getVehicle:()Lzombie/vehicles/BaseVehicle;
+        45: ifnull        86
+        48: aload_2
+        49: invokevirtual #69                 // Method zombie/characters/IsoPlayer.getVehicle:()Lzombie/vehicles/BaseVehicle;
+        52: invokevirtual #73                 // Method zombie/vehicles/BaseVehicle.isEngineRunning:()Z
+        55: ifne          61
+        58: goto          86
+        61: aload_0
+        62: aload_2
+        63: invokevirtual #69                 // Method zombie/characters/IsoPlayer.getVehicle:()Lzombie/vehicles/BaseVehicle;
+        66: invokevirtual #78                 // Method updateVehicle:(Lzombie/vehicles/BaseVehicle;)V
+        69: aload_2
+        70: invokevirtual #69                 // Method zombie/characters/IsoPlayer.getVehicle:()Lzombie/vehicles/BaseVehicle;
+        73: invokevirtual #82                 // Method zombie/vehicles/BaseVehicle.getVehicleTowing:()Lzombie/vehicles/BaseVehicle;
+        76: astore_3
+        77: aload_3
+        78: ifnull        86
+        81: aload_0
+        82: aload_3
+        83: invokevirtual #78                 // Method updateVehicle:(Lzombie/vehicles/BaseVehicle;)V
+        86: iinc          1, 1
+        89: goto          26
+        92: aload_0
+        93: getfield      #27                 // Field queue:Ljava/util/concurrent/ConcurrentLinkedQueue;
+        96: invokevirtual #85                 // Method java/util/concurrent/ConcurrentLinkedQueue.poll:()Ljava/lang/Object;
+        99: checkcast     #89                 // class zombie/vehicles/VehiclesDB2$QueueItem
+       102: astore_1
+       103: aload_1
+       104: ifnull        141
+       107: aload_1
+       108: invokevirtual #91                 // Method zombie/vehicles/VehiclesDB2$QueueItem.processMain:()V
+       111: aload_1
+       112: invokevirtual #94                 // Method zombie/vehicles/VehiclesDB2$QueueItem.release:()V
+       115: goto          127
+       118: astore        4
+       120: aload_1
+       121: invokevirtual #94                 // Method zombie/vehicles/VehiclesDB2$QueueItem.release:()V
+       124: aload         4
+       126: athrow
+       127: aload_0
+       128: getfield      #27                 // Field queue:Ljava/util/concurrent/ConcurrentLinkedQueue;
+       131: invokevirtual #85                 // Method java/util/concurrent/ConcurrentLinkedQueue.poll:()Ljava/lang/Object;
+       134: checkcast     #89                 // class zombie/vehicles/VehiclesDB2$QueueItem
+       137: astore_1
+       138: goto          103
+       141: return
+      Exception table:
+         from    to  target type
+           107   111   118   any
+           118   120   118   any
+
+  void setChunkSeen(int, int);
+    Code:
+         0: iload_2
+         1: bipush        16
+         3: ishl
+         4: iload_1
+         5: ior
+         6: istore_3
+         7: aload_0
+         8: getfield      #12                 // Field seenChunks:Lgnu/trove/set/hash/TIntHashSet;
+        11: iload_3
+        12: invokevirtual #97                 // Method gnu/trove/set/hash/TIntHashSet.add:(I)Z
+        15: pop
+        16: return
+
+  boolean isChunkSeen(int, int);
+    Code:
+         0: iload_2
+         1: bipush        16
+         3: ishl
+         4: iload_1
+         5: ior
+         6: istore_3
+         7: aload_0
+         8: getfield      #12                 // Field seenChunks:Lgnu/trove/set/hash/TIntHashSet;
+        11: iload_3
+        12: invokevirtual #101                // Method gnu/trove/set/hash/TIntHashSet.contains:(I)Z
+        15: ireturn
+
+  int allocateID();
+    Code:
+         0: aload_0
+         1: getfield      #18                 // Field usedIds:Lgnu/trove/set/hash/TIntHashSet;
+         4: dup
+         5: astore_1
+         6: monitorenter
+         7: iconst_1
+         8: istore_2
+         9: iload_2
+        10: ldc           #106                // int 2147483647
+        12: if_icmpge     45
+        15: aload_0
+        16: getfield      #18                 // Field usedIds:Lgnu/trove/set/hash/TIntHashSet;
+        19: iload_2
+        20: invokevirtual #101                // Method gnu/trove/set/hash/TIntHashSet.contains:(I)Z
+        23: ifne          39
+        26: aload_0
+        27: getfield      #18                 // Field usedIds:Lgnu/trove/set/hash/TIntHashSet;
+        30: iload_2
+        31: invokevirtual #97                 // Method gnu/trove/set/hash/TIntHashSet.add:(I)Z
+        34: pop
+        35: iload_2
+        36: aload_1
+        37: monitorexit
+        38: ireturn
+        39: iinc          2, 1
+        42: goto          9
+        45: aload_1
+        46: monitorexit
+        47: goto          55
+        50: astore_3
+        51: aload_1
+        52: monitorexit
+        53: aload_3
+        54: athrow
+        55: new           #107                // class java/lang/RuntimeException
+        58: dup
+        59: ldc           #109                // String ran out of unused vehicle ids
+        61: invokespecial #111                // Method java/lang/RuntimeException."<init>":(Ljava/lang/String;)V
+        64: athrow
+      Exception table:
+         from    to  target type
+             7    38    50   any
+            39    47    50   any
+            50    53    50   any
+
+  void setVehicleLoaded(zombie.vehicles.BaseVehicle);
+    Code:
+         0: aload_1
+         1: getfield      #114                // Field zombie/vehicles/BaseVehicle.sqlId:I
+         4: iconst_m1
+         5: if_icmpne     16
+         8: aload_1
+         9: aload_0
+        10: invokevirtual #118                // Method allocateID:()I
+        13: putfield      #114                // Field zombie/vehicles/BaseVehicle.sqlId:I
+        16: getstatic     #38                 // Field $assertionsDisabled:Z
+        19: ifne          44
+        22: aload_0
+        23: getfield      #21                 // Field loadedIds:Lgnu/trove/set/hash/TIntHashSet;
+        26: aload_1
+        27: getfield      #114                // Field zombie/vehicles/BaseVehicle.sqlId:I
+        30: invokevirtual #101                // Method gnu/trove/set/hash/TIntHashSet.contains:(I)Z
+        33: ifeq          44
+        36: new           #46                 // class java/lang/AssertionError
+        39: dup
+        40: invokespecial #48                 // Method java/lang/AssertionError."<init>":()V
+        43: athrow
+        44: aload_0
+        45: getfield      #21                 // Field loadedIds:Lgnu/trove/set/hash/TIntHashSet;
+        48: aload_1
+        49: getfield      #114                // Field zombie/vehicles/BaseVehicle.sqlId:I
+        52: invokevirtual #97                 // Method gnu/trove/set/hash/TIntHashSet.add:(I)Z
+        55: pop
+        56: return
+
+  void setVehicleUnloaded(zombie.vehicles.BaseVehicle);
+    Code:
+         0: aload_1
+         1: getfield      #114                // Field zombie/vehicles/BaseVehicle.sqlId:I
+         4: iconst_m1
+         5: if_icmpne     9
+         8: return
+         9: aload_0
+        10: getfield      #21                 // Field loadedIds:Lgnu/trove/set/hash/TIntHashSet;
+        13: aload_1
+        14: getfield      #114                // Field zombie/vehicles/BaseVehicle.sqlId:I
+        17: invokevirtual #122                // Method gnu/trove/set/hash/TIntHashSet.remove:(I)Z
+        20: pop
+        21: return
+
+  void addVehicle(zombie.vehicles.BaseVehicle) throws java.io.IOException;
+    Code:
+         0: aload_1
+         1: getfield      #114                // Field zombie/vehicles/BaseVehicle.sqlId:I
+         4: iconst_m1
+         5: if_icmpne     16
+         8: aload_1
+         9: aload_0
+        10: invokevirtual #118                // Method allocateID:()I
+        13: putfield      #114                // Field zombie/vehicles/BaseVehicle.sqlId:I
+        16: getstatic     #125                // Field zombie/vehicles/VehiclesDB2$QueueAddVehicle.s_pool:Lzombie/util/Pool;
+        19: invokevirtual #131                // Method zombie/util/Pool.alloc:()Lzombie/util/IPooledObject;
+        22: checkcast     #126                // class zombie/vehicles/VehiclesDB2$QueueAddVehicle
+        25: astore_2
+        26: aload_2
+        27: aload_1
+        28: invokevirtual #137                // Method zombie/vehicles/VehiclesDB2$QueueAddVehicle.init:(Lzombie/vehicles/BaseVehicle;)V
+        31: getstatic     #140                // Field zombie/vehicles/VehiclesDB2.instance:Lzombie/vehicles/VehiclesDB2;
+        34: getfield      #144                // Field zombie/vehicles/VehiclesDB2.worldStreamer:Lzombie/vehicles/VehiclesDB2$WorldStreamerThread;
+        37: getfield      #148                // Field zombie/vehicles/VehiclesDB2$WorldStreamerThread.queue:Ljava/util/concurrent/ConcurrentLinkedQueue;
+        40: aload_2
+        41: invokevirtual #151                // Method java/util/concurrent/ConcurrentLinkedQueue.add:(Ljava/lang/Object;)Z
+        44: pop
+        45: return
+
+  void removeVehicle(zombie.vehicles.BaseVehicle);
+    Code:
+         0: getstatic     #154                // Field zombie/vehicles/VehiclesDB2$QueueRemoveVehicle.s_pool:Lzombie/util/Pool;
+         3: invokevirtual #131                // Method zombie/util/Pool.alloc:()Lzombie/util/IPooledObject;
+         6: checkcast     #155                // class zombie/vehicles/VehiclesDB2$QueueRemoveVehicle
+         9: astore_2
+        10: aload_2
+        11: aload_1
+        12: invokevirtual #157                // Method zombie/vehicles/VehiclesDB2$QueueRemoveVehicle.init:(Lzombie/vehicles/BaseVehicle;)V
+        15: getstatic     #140                // Field zombie/vehicles/VehiclesDB2.instance:Lzombie/vehicles/VehiclesDB2;
+        18: getfield      #144                // Field zombie/vehicles/VehiclesDB2.worldStreamer:Lzombie/vehicles/VehiclesDB2$WorldStreamerThread;
+        21: getfield      #148                // Field zombie/vehicles/VehiclesDB2$WorldStreamerThread.queue:Ljava/util/concurrent/ConcurrentLinkedQueue;
+        24: aload_2
+        25: invokevirtual #151                // Method java/util/concurrent/ConcurrentLinkedQueue.add:(Ljava/lang/Object;)Z
+        28: pop
+        29: return
+
+  void updateVehicle(zombie.vehicles.BaseVehicle) throws java.io.IOException;
+    Code:
+         0: aload_1
+         1: getfield      #114                // Field zombie/vehicles/BaseVehicle.sqlId:I
+         4: iconst_m1
+         5: if_icmpne     16
+         8: aload_1
+         9: aload_0
+        10: invokevirtual #118                // Method allocateID:()I
+        13: putfield      #114                // Field zombie/vehicles/BaseVehicle.sqlId:I
+        16: getstatic     #158                // Field zombie/vehicles/VehiclesDB2$QueueUpdateVehicle.s_pool:Lzombie/util/Pool;
+        19: invokevirtual #131                // Method zombie/util/Pool.alloc:()Lzombie/util/IPooledObject;
+        22: checkcast     #159                // class zombie/vehicles/VehiclesDB2$QueueUpdateVehicle
+        25: astore_2
+        26: aload_2
+        27: aload_1
+        28: invokevirtual #161                // Method zombie/vehicles/VehiclesDB2$QueueUpdateVehicle.init:(Lzombie/vehicles/BaseVehicle;)V
+        31: getstatic     #140                // Field zombie/vehicles/VehiclesDB2.instance:Lzombie/vehicles/VehiclesDB2;
+        34: getfield      #144                // Field zombie/vehicles/VehiclesDB2.worldStreamer:Lzombie/vehicles/VehiclesDB2$WorldStreamerThread;
+        37: getfield      #148                // Field zombie/vehicles/VehiclesDB2$WorldStreamerThread.queue:Ljava/util/concurrent/ConcurrentLinkedQueue;
+        40: aload_2
+        41: invokevirtual #151                // Method java/util/concurrent/ConcurrentLinkedQueue.add:(Ljava/lang/Object;)Z
+        44: pop
+        45: return
+
+  void loadChunk(zombie.iso.IsoChunk);
+    Code:
+         0: getstatic     #162                // Field zombie/vehicles/VehiclesDB2$QueueLoadChunk.s_pool:Lzombie/util/Pool;
+         3: invokevirtual #131                // Method zombie/util/Pool.alloc:()Lzombie/util/IPooledObject;
+         6: checkcast     #163                // class zombie/vehicles/VehiclesDB2$QueueLoadChunk
+         9: astore_2
+        10: aload_2
+        11: aload_1
+        12: getfield      #165                // Field zombie/iso/IsoChunk.wx:I
+        15: aload_1
+        16: getfield      #170                // Field zombie/iso/IsoChunk.wy:I
+        19: invokevirtual #173                // Method zombie/vehicles/VehiclesDB2$QueueLoadChunk.init:(II)V
+        22: aload_1
+        23: aload_2
+        24: putfield      #176                // Field zombie/iso/IsoChunk.loadVehiclesObject:Ljava/lang/Object;
+        27: getstatic     #140                // Field zombie/vehicles/VehiclesDB2.instance:Lzombie/vehicles/VehiclesDB2;
+        30: getfield      #144                // Field zombie/vehicles/VehiclesDB2.worldStreamer:Lzombie/vehicles/VehiclesDB2$WorldStreamerThread;
+        33: getfield      #148                // Field zombie/vehicles/VehiclesDB2$WorldStreamerThread.queue:Ljava/util/concurrent/ConcurrentLinkedQueue;
+        36: aload_2
+        37: invokevirtual #151                // Method java/util/concurrent/ConcurrentLinkedQueue.add:(Ljava/lang/Object;)Z
+        40: pop
+        41: return
+
+  void loadVehiclesInMeta();
+    Code:
+         0: getstatic     #180                // Field zombie/vehicles/VehiclesDB2$QueueLoadVehiclesInMeta.s_pool:Lzombie/util/Pool;
+         3: invokevirtual #131                // Method zombie/util/Pool.alloc:()Lzombie/util/IPooledObject;
+         6: checkcast     #181                // class zombie/vehicles/VehiclesDB2$QueueLoadVehiclesInMeta
+         9: astore_1
+        10: aload_1
+        11: invokevirtual #183                // Method zombie/vehicles/VehiclesDB2$QueueLoadVehiclesInMeta.init:()V
+        14: getstatic     #140                // Field zombie/vehicles/VehiclesDB2.instance:Lzombie/vehicles/VehiclesDB2;
+        17: getfield      #144                // Field zombie/vehicles/VehiclesDB2.worldStreamer:Lzombie/vehicles/VehiclesDB2$WorldStreamerThread;
+        20: getfield      #148                // Field zombie/vehicles/VehiclesDB2$WorldStreamerThread.queue:Ljava/util/concurrent/ConcurrentLinkedQueue;
+        23: aload_1
+        24: invokevirtual #151                // Method java/util/concurrent/ConcurrentLinkedQueue.add:(Ljava/lang/Object;)Z
+        27: pop
+        28: return
+
+  static {};
+    Code:
+         0: ldc           #1                  // class zombie/vehicles/VehiclesDB2
+         2: invokevirtual #185                // Method java/lang/Class.desiredAssertionStatus:()Z
+         5: ifne          12
+         8: iconst_1
+         9: goto          13
+        12: iconst_0
+        13: putstatic     #38                 // Field $assertionsDisabled:Z
+        16: return
+}

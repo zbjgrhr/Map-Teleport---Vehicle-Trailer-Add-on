@@ -1,0 +1,8 @@
+name=Map Teleport – Vehicle & Trailer Add-on
+id=UMTSPVehicleBridge
+author=[IA] Introvert Arcade
+modversion=0.6.0
+versionMin=42.21
+category=features
+poster=poster.png
+description=Standalone world-map character and animal teleport, with long-distance vehicle teleport and seated passengers in single-player saves. No base mod, ZombieBuddy or Java installation required. Disconnect trailers before vehicle teleport; network vehicle teleport is not supported in this version.
